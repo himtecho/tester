@@ -1,11 +1,15 @@
-export function luasPermukaanBalok(panjang: number, lebar: number, tinggi: number): number {
-  return 2 * (panjang * lebar + panjang * tinggi + lebar * tinggi);
+export function boxSurfaceArea(length: number, width: number, height: number): number {
+  return 2 * (length * width + length * height + width * height);
 }
 
-export function luasPermukaanKubus(sisi: number): number {
-  return 6 * sisi * sisi;
+export function cubeSurfaceArea(side: number): number {
+  return 6 * side * side;
 }
 
-export function luasPermukaanTabung(jariJari: number, tinggi: number): number {
-  return 2 * Math.PI * jariJari * (jariJari + tinggi);
+export function cylinderSurfaceArea(radius: number, height: number): number {
+  return 2 * Math.PI * radius * (radius + height);
+}
+
+export function formatResult(value: number): string {
+  return value.toFixed(2);
 }
