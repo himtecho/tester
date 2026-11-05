@@ -12,7 +12,7 @@ async function handleRegister(): Promise<void> {
 
 async function showMainMenu(): Promise<void> {
   while (true) {
-    console.log("\n=== MENU UTAMA ===");
+    console.log("\n=== MENu UTAMA ===");
     console.log("1. Buat akun");
     console.log("2. Keluar");
 
