@@ -1,37 +1,26 @@
 import { createInterface } from "node:readline/promises";
 import { stdin as input, stdout as output } from "node:process";
-import { register } from "./services/user-service.js";
+import { menus } from "./menu/registry.js";
 
 const rl = createInterface({ input, output });
 
-async function handleRegister(): Promise<void> {
-  const name = (await rl.question("Masukkan nama: ")).trim();
-  const result = register(name);
-  console.log(result.message);
-}
+while (true) {
+  console.log("\n=== MENU UTAMA ===");
+  menus.forEach((m, i) => console.log(`${i + 1}. ${m.label}`));
+  console.log("0. Keluar");
 
-async function showMainMenu(): Promise<void> {
-  while (true) {
-    console.log("\n=== MENU UTAMA ===");
-    console.log("1. Buat akun");
-    console.log("2. Keluar");
+  const pilihan = Number((await rl.question("Pilih: ")).trim());
 
-    const jawaban = await rl.question("Pilih: ");
-
-    switch (jawaban.trim()) {
-      case "1":
-        await handleRegister();
-        break;
-
-      case "2":
-        console.log("Sampai jumpa!");
-        rl.close();
-        return;
-
-      default:
-        console.log("Pilihan tidak valid.");
-    }
+  if (pilihan === 0) {
+    console.log("Sampai jumpa!");
+    rl.close();
+    break;
   }
-}
 
-await showMainMenu();
+  const menu = menus[pilihan - 1];
+  if (!menu) {
+    console.log("Pilihan tidak valid.");
+    continue;
+  }
+  await menu.run(rl);
+}
